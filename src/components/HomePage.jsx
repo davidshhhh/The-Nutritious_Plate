@@ -196,19 +196,21 @@ function HomePage({ onNavigate, darkMode }) {
               darkMode={darkMode}
             />
             <FeatureCard
-              title="Smart Recipes"
-              description="AI-generated recipes tailored to your dietary needs and preferences with step-by-step instructions"
-              action={() => onNavigate('generate')}
-              buttonText="Generate"
-              gradient="from-[#b8976a] to-[#8b7355]"
+              title="Ingredient Intelligence"
+              description="Analyze and discover insights about ingredients with smart nutritional breakdown and alternatives"
+              action={() => {}}
+              buttonText="Coming Soon"
+              disabled
+              gradient="from-gray-600 to-gray-700"
               darkMode={darkMode}
             />
             <FeatureCard
               title="Nutrition Facts"
               description="Medical-grade nutrition data from USDA FoodData Central with detailed macros and micronutrients"
-              action={() => onNavigate('generate')}
-              buttonText="Explore"
-              gradient="from-[#c9a875] to-[#d4a574]"
+              action={() => {}}
+              buttonText="Coming Soon"
+              disabled
+              gradient="from-gray-600 to-gray-700"
               darkMode={darkMode}
             />
             <FeatureCard
@@ -232,7 +234,7 @@ function HomePage({ onNavigate, darkMode }) {
               title="Mobile Ready"
               description="Access your recipes and chat with Ash from any device with our responsive design"
               action={() => {}}
-              buttonText="Learn More"
+              buttonText="Coming Soon"
               disabled
               gradient="from-gray-600 to-gray-700"
               darkMode={darkMode}

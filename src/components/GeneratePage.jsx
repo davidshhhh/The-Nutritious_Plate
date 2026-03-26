@@ -76,19 +76,19 @@ function GeneratePage() {
           {/* Welcome header - only show when no messages */}
           {messages.length === 0 && (
             <div className="text-center space-y-8 mb-12">
-              <div className="space-y-3">
-                <h1 className="text-4xl md:text-5xl font-light text-gray-800">
+              <div className="space-y-4">
+                <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-[#c9a875] via-[#d4b896] to-[#8b7355] bg-clip-text text-transparent">
                   Chat with Ash
                 </h1>
-                <p className="text-gray-600 text-base">
+                <p className="text-lg md:text-xl text-gray-700 font-light leading-relaxed">
                   Your wellness collaborator for nutrition, recipes, and health advice.<br />
-                  Ask Ash to "fix" meals and get personalized recipes.
+                  <span className="font-medium">Ask Ash to "fix" meals and get personalized recipes.</span>
                 </p>
               </div>
 
               {/* Suggestion prompts */}
-              <div className="space-y-4">
-                <p className="text-gray-500 text-sm uppercase tracking-wide">Not sure where to start? Try one of these:</p>
+              <div className="space-y-6 pt-4">
+                <p className="text-gray-500 text-sm uppercase tracking-widest font-semibold">Not sure where to start? Try one of these:</p>
                 <div className="flex flex-wrap justify-center gap-3">
                   <Button 
                     variant="pill" 
@@ -133,16 +133,7 @@ function GeneratePage() {
             ))}
           </div>
 
-          {/* Generating indicator */}
-          {isGenerating && (
-            <div className="mt-6 bg-blue-50 border border-blue-200 text-blue-700 px-4 py-3 rounded-lg text-sm flex items-center gap-2">
-              <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-              Ash is thinking...
-            </div>
-          )}
+
         </div>
       </div>
 
@@ -156,35 +147,48 @@ function GeneratePage() {
             </div>
           )}
 
-          {/* Chat input box */}
-          <div className="relative">
-            <input
-              ref={inputRef}
-              type="text"
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Ask Ash about nutrition and wellness..."
-              disabled={isGenerating}
-              className="w-full px-6 py-4 pr-14 bg-white border border-gray-300 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-[#c9a875] focus:border-transparent transition-all text-gray-800 placeholder-gray-400 disabled:bg-gray-50 disabled:cursor-not-allowed"
-            />
-            <button 
-              onClick={() => handleGenerate()}
-              disabled={isGenerating || !prompt.trim()}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#c9a875] hover:bg-[#b8976a] text-white p-3 rounded-full transition-all disabled:bg-gray-300 disabled:cursor-not-allowed"
-            >
-              {isGenerating ? (
-                <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-              ) : (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                </svg>
-              )}
-            </button>
-          </div>
+          {/* Chat input box or thinking state */}
+          {isGenerating ? (
+            <div className="w-full px-6 py-4 bg-gradient-to-r from-[#c9a875]/10 to-[#8b7355]/10 border border-[#c9a875]/30 rounded-full shadow-lg flex items-center gap-3">
+              <div className="flex gap-1.5">
+                <div className="w-2.5 h-2.5 bg-gradient-to-br from-[#c9a875] to-[#8b7355] rounded-full animate-bounce"></div>
+                <div className="w-2.5 h-2.5 bg-gradient-to-br from-[#c9a875] to-[#8b7355] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                <div className="w-2.5 h-2.5 bg-gradient-to-br from-[#c9a875] to-[#8b7355] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+              </div>
+              <span className="text-sm bg-gradient-to-r from-[#c9a875] to-[#8b7355] bg-clip-text text-transparent font-medium">
+                Ash is thinking...
+              </span>
+            </div>
+          ) : (
+            <div className="relative">
+              <input
+                ref={inputRef}
+                type="text"
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Ask Ash about nutrition and wellness..."
+                disabled={isGenerating}
+                className="w-full px-6 py-4 pr-14 bg-white border border-gray-300 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-[#c9a875] focus:border-transparent transition-all text-gray-800 placeholder-gray-400 disabled:bg-gray-50 disabled:cursor-not-allowed"
+              />
+              <button 
+                onClick={() => handleGenerate()}
+                disabled={isGenerating || !prompt.trim()}
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#c9a875] hover:bg-[#b8976a] text-white p-3 rounded-full transition-all disabled:bg-gray-300 disabled:cursor-not-allowed"
+              >
+                {isGenerating ? (
+                  <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                  </svg>
+                )}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </main>
